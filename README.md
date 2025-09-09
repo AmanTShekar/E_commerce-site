@@ -7,6 +7,11 @@ A complete eCommerce web application with:
 - Modern responsive UI with React + Tailwind CSS
 - FastAPI backend with SQLAlchemy ORM and automatic API docs
 
+## 🌐 Live Demo
+
+You can try the fully deployed eCommerce platform here:  
+Link: [https://frontend-a5lr.onrender.com](https://frontend-a5lr.onrender.com)  
+
 ## ✨ Features
 
 ### 👤 Customer
