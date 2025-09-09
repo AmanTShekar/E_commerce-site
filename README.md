@@ -12,7 +12,7 @@ API Documentation: Automatic Swagger UI via FastAPI
 
 You can try the fully deployed eCommerce platform at the following link:  
 
-[**Visit Live Demo**](https://your-deployed-site-url.com) 
+[**Visit Live Demo**](https://frontend-a5lr.onrender.com) 
 
 ## ✨ Features
 
@@ -79,29 +79,19 @@ venv\Scripts\activate      # On Windows
 cd backend
 pip install -r requirements.txt
 
-### 4. Setup Environment Variables
-Create a `.env` file in the backend directory:
-
-FLASK_SECRET_KEY=your_secret_key
-SCRAPER_API_KEY=your_scraperapi_key
-GOOGLE_APPLICATION_CREDENTIALS=google-credentials.json
-
-- `google-credentials.json` → Download from Google Cloud Console and place in the project root.  
-- `SCRAPER_API_KEY` → [Get a free ScraperAPI key](https://www.scraperapi.com/).  
-
-### 5. Run Backend Locally
+### 4. Run Backend Locally
 uvicorn main:app --reload
 - Backend runs at: http://127.0.0.1:8000  
 - API docs: http://127.0.0.1:8000/docs
 
-### 6. Setup Frontend
+### 5. Setup Frontend
 cd ../frontend
 npm install
 npm run dev
 - Frontend runs at: http://localhost:5173  
 - Make sure Axios or BASE_URL points to the FastAPI backend
 
-### 7. Sample Users
+### 6. Sample Users
 Admin:
 {
   "username": "admin@123",
