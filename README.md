@@ -8,9 +8,8 @@ This is a **full-stack eCommerce web application** that includes:
 - Clean UI built with Tailwind CSS and Vite
 - SQLite database by default (switchable to PostgreSQL for production)
 
-====================================================================
+
 ✨ Features
-====================================================================
 
 ✅ Customer Side:
 - Browse all products with categories, offers, and discounts
