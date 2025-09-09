@@ -1,126 +1,154 @@
 # 🛒 Full-Stack eCommerce Platform (React + FastAPI)
 
-This is a full-stack eCommerce application with a Customer-Facing Frontend and Admin Panel, built using modern web technologies for fast, scalable, and maintainable development.
+This is a **full-stack eCommerce web application** that includes:
+- A modern customer-facing frontend for browsing and purchasing products
+- A secure admin panel for managing products, categories, offers, and orders
+- Role-based authentication (Admin vs Customer)
+- Real-time updates with FastAPI + React
+- Clean UI built with Tailwind CSS and Vite
+- SQLite database by default (switchable to PostgreSQL for production)
 
-Frontend: React + Tailwind CSS + Vite  
-Backend: FastAPI + SQLAlchemy + SQLite/PostgreSQL (configurable)  
-Authentication: Role-based (Admin / Customer)  
-Database: SQLAlchemy ORM models for Products, Categories, Offers, Orders, and Users  
-API Documentation: Automatic Swagger UI via FastAPI
+====================================================================
+✨ Features
+====================================================================
 
-## 🌐 Live Demo
+✅ Customer Side:
+- Browse all products with categories, offers, and discounts
+- View product details and special offers
+- Responsive, mobile-friendly design
+- User login and signup
+- View and track order history
 
-You can try the fully deployed eCommerce platform at the following link:  
+✅ Admin Side:
+- Login with admin role
+- Full CRUD (Create, Read, Update, Delete) for:
+  → Products
+  → Categories
+  → Offers
+  → Orders
+- Role-based restriction (only admins can modify data)
+- Live updates reflected in frontend instantly
 
-[**Visit Live Demo**](https://frontend-a5lr.onrender.com) 
+✅ Backend:
+- FastAPI for blazing-fast APIs
+- SQLAlchemy ORM with models for all entities
+- Automatic Swagger API docs at /docs
+- JWT / session-based authentication with hashed passwords
 
-## ✨ Features
+====================================================================
+🚀 Run Locally (No Docker Needed)
+====================================================================
 
-Admin Panel:  
-- Full CRUD support for Products, Categories, Offers, and Orders  
-- Manage product details including categories, offers, and images  
-- Role-based access: Only Admin can perform modifications  
-- Real-time updates reflected in frontend  
-- Order management and tracking
-
-Frontend (Customer-Facing):  
-- Browse products with images, categories, offers, and pricing  
-- View active offers in a clean card layout  
-- Featured categories and product highlights  
-- User authentication and order history view  
-- Responsive and modern UI powered by Tailwind CSS
-
-Backend:  
-- FastAPI for high-performance API endpoints  
-- SQLAlchemy ORM for structured database management  
-- Products API returns nested objects for category and offer instead of IDs  
-- Role-based authentication with hashed passwords  
-- API documentation available at /docs
-
-## ⚡ New Updates
-- Migrated backend from json-server to FastAPI + SQLAlchemy  
-- Products now correctly show Category names and Offer details  
-- Full CRUD support for all entities  
-- Frontend consumes live data from backend at http://localhost:8000  
-- Added JWT or session-based authentication for secure user roles  
-- Admin Panel updated for real-time item management
-
-## 📂 Project Structure
-
-react-fastapi-ecommerce/  
-├─ backend/               # FastAPI backend  
-│  ├─ main.py             # Entry point  
-│  ├─ models.py           # SQLAlchemy models  
-│  ├─ routes/             # API routes  
-│  └─ requirements.txt    # Python dependencies  
-├─ frontend/              # React frontend  
-│  ├─ src/                # Components, pages, utils  
-│  ├─ public/             # Static assets  
-│  ├─ package.json  
-│  └─ vite.config.js  
-├─ .gitignore  
-├─ .gitattributes  
-├─ ecommerce.db           # SQLite database (optional)  
-└─ README.md
-
-
-## 🚀 Getting Started
-
-### 1. Clone the Repository
-git clone https://github.com/YourUsername/react-fastapi-ecommerce.git
+1. Clone the Repository
+git clone https://github.com/AmanTShekar/E_commerce-site.git
 cd react-fastapi-ecommerce
 
-### 2. Create a Virtual Environment (Optional but Recommended)
-python -m venv venv
-source venv/bin/activate   # On macOS/Linux
-venv\Scripts\activate      # On Windows
-
-### 3. Install Backend Dependencies
+2. Backend Setup
 cd backend
+python -m venv venv
+source venv/bin/activate   # macOS/Linux
+venv\Scripts\activate      # Windows
 pip install -r requirements.txt
-
-### 4. Run Backend Locally
 uvicorn main:app --reload
-- Backend runs at: http://127.0.0.1:8000  
-- API docs: http://127.0.0.1:8000/docs
 
-### 5. Setup Frontend
+Backend runs at: http://127.0.0.1:8000
+Swagger docs: http://127.0.0.1:8000/docs
+
+3. Frontend Setup
 cd ../frontend
 npm install
+
+👉 Edit frontend/src/config.js to point API to backend:
+export const BASE_URL = "http://127.0.0.1:8000";
+
+Run frontend:
 npm run dev
-- Frontend runs at: http://localhost:5173  
-- Make sure Axios or BASE_URL points to the FastAPI backend
 
-### 6. Sample Users
-Admin:
-{
-  "username": "admin@123",
-  "password": "admin123"
-}
+Frontend runs at: http://localhost:5173
 
-Customer:
-{
-  "username": "john@1",
-  "password": "john123"
-}
+====================================================================
+🔑 Sample Users
+====================================================================
 
-## 💡 Additional Notes
+Admin Login:
+username: admin@123
+password: admin123
 
-- Ensure database configuration is correct for PostgreSQL/MySQL if not using SQLite  
-- Newly added items in Admin Panel can be edited or deleted  
-- Role-based access ensures Admin-only operations are secure  
-- Use .env for sensitive keys and credentials
+Customer Login:
+username: john@1
+password: john123
 
-## 🚀 Technologies Used
+====================================================================
+📂 Project Structure
+====================================================================
 
-- Frontend: React, Vite, Tailwind CSS  
-- Backend: FastAPI, SQLAlchemy, Uvicorn, Pydantic  
-- Database: SQLite or PostgreSQL  
-- Authentication: JWT / session-based, password hashing
+react-fastapi-ecommerce/
+├─ backend/
+│  ├─ main.py           # FastAPI entry point
+│  ├─ models.py         # SQLAlchemy models
+│  ├─ routes/           # API routes (products, users, orders, etc.)
+│  └─ requirements.txt  # Backend dependencies
+├─ frontend/
+│  ├─ src/              # React components & pages
+│  ├─ public/           # Static assets
+│  ├─ package.json      # Frontend dependencies
+│  └─ vite.config.js    # Vite config
+├─ ecommerce.db         # SQLite database (auto-created)
+├─ .gitignore
+├─ .gitattributes
+└─ README.md
 
-## 🎯 Roadmap / Future Improvements
+====================================================================
+⚡ Optional: Docker (for full container setup)
+====================================================================
 
-- Payment gateway integration (Stripe / PayPal)  
-- Email notifications for orders  
-- Product image upload via AWS S3 or Cloudinary  
-- Improved analytics dashboard for Admin
+docker-compose up --build
+
+This runs both backend (FastAPI) and frontend (React) in containers.
+
+====================================================================
+📊 Tech Stack
+====================================================================
+
+Frontend: React, Vite, Tailwind CSS  
+Backend: FastAPI, SQLAlchemy, Uvicorn, Pydantic  
+Database: SQLite (default) or PostgreSQL (production ready)  
+Authentication: JWT/session-based, password hashing  
+
+====================================================================
+🛠️ Development Notes
+====================================================================
+
+- Default database: SQLite (file-based, easy for local dev)
+- To switch to PostgreSQL, update backend database URL in main.py or config
+- Use `.env` files for secrets in production (API keys, DB passwords, JWT keys)
+- Product images can be served from `/public` or integrated with S3/Cloudinary
+- React frontend uses Axios to talk to backend API
+
+====================================================================
+🎯 Roadmap / Future Enhancements
+====================================================================
+
+- Payment gateway integration (Stripe / PayPal)
+- Email notifications for order confirmations
+- Cloud storage integration for product images
+- Search and filter products by name, category, or price
+- Admin analytics dashboard (sales, users, popular products)
+- Wishlist and cart functionality
+- Multi-language and multi-currency support
+
+====================================================================
+🧪 Testing
+====================================================================
+
+- Backend API can be tested with Swagger UI (http://127.0.0.1:8000/docs)
+- Frontend tested with `npm run dev` using live backend
+- Unit tests can be added with pytest (backend) and Jest (frontend)
+
+====================================================================
+📢 Notes
+====================================================================
+
+- Docker is optional, not required for local dev
+- Recommended Python 3.10+ and Node.js 18+
+- Works on Windows, macOS, and Linux
