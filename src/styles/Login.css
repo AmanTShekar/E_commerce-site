@@ -1,0 +1,62 @@
+/* Login.css - White/Grey theme with modern shadows and glass effect */
+
+body {
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-glass-box {
+  max-width: 600px;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #333;
+}
+
+.login-glass-box h2 {
+  color: #222;
+}
+
+.login-glass-box label {
+  font-weight: 600;
+  color: #444;
+}
+
+.login-glass-box input {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+}
+
+.login-glass-box input::placeholder {
+  color: #aaa;
+}
+
+.login-glass-box .btn {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.login-glass-box .btn:hover {
+  background-color: #222;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}

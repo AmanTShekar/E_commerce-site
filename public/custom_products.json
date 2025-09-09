@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "title": "Smartphone Max 12",
+    "price": 999,
+    "description": "A powerful smartphone with advanced features and a sleek design.",
+    "category": "Electronics",
+    "image": "https://cdn.pixabay.com/photo/2017/01/22/19/20/smartphone-2001018_960_720.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Fitness Tracker Pro",
+    "price": 199,
+    "description": "Track your health and fitness metrics 24/7 with precision.",
+    "category": "Wearables",
+    "image": "https://cdn.pixabay.com/photo/2019/06/26/14/03/smartwatch-4302209_960_720.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Smart Thermostat",
+    "price": 249,
+    "description": "Automate your home temperature and save energy with smart features.",
+    "category": "Smart Home",
+    "image": "https://cdn.pixabay.com/photo/2018/03/16/18/44/thermostat-3234088_960_720.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Wireless Earbuds",
+    "price": 129,
+    "description": "Compact and high-quality wireless earbuds for music on the go.",
+    "category": "Audio",
+    "image": "https://cdn.pixabay.com/photo/2018/04/13/19/07/headphones-3312586_960_720.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Gaming Console Z",
+    "price": 499,
+    "description": "Next-gen gaming console with stunning graphics and performance.",
+    "category": "Gaming",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/04/17/xbox-1867288_960_720.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Laptop Pro 15",
+    "price": 1299,
+    "description": "A high-performance laptop suitable for work and entertainment.",
+    "category": "Electronics",
+    "image": "https://cdn.pixabay.com/photo/2014/09/27/13/44/macbook-463491_960_720.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Smart Speaker",
+    "price": 149,
+    "description": "Voice-activated speaker with smart assistant integration.",
+    "category": "Smart Home",
+    "image": "https://cdn.pixabay.com/photo/2018/12/03/20/08/technology-3856071_960_720.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Gaming Headset X",
+    "price": 89,
+    "description": "Immersive sound and noise cancellation for intense gaming.",
+    "category": "Gaming",
+    "image": "https://cdn.pixabay.com/photo/2017/02/14/00/14/headphones-2067336_960_720.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Smartwatch Alpha",
+    "price": 299,
+    "description": "Stylish smartwatch with fitness and call features.",
+    "category": "Wearables",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/03/53/apple-1867461_960_720.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Wireless Mouse",
+    "price": 39,
+    "description": "Ergonomic wireless mouse with high precision tracking.",
+    "category": "Accessories",
+    "image": "https://cdn.pixabay.com/photo/2018/01/08/18/57/technology-3068612_960_720.jpg"
+  },
+  {
+    "id": 11,
+    "title": "Bluetooth Keyboard",
+    "price": 59,
+    "description": "Slim and silent Bluetooth keyboard for comfortable typing.",
+    "category": "Accessories",
+    "image": "https://cdn.pixabay.com/photo/2016/02/13/12/26/keyboard-1198303_960_720.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Drone Vision X",
+    "price": 799,
+    "description": "Capture stunning aerial views with this 4K camera drone.",
+    "category": "Electronics",
+    "image": "https://cdn.pixabay.com/photo/2017/05/01/17/05/drone-2279757_960_720.jpg"
+  },
+  {
+    "id": 13,
+    "title": "VR Headset",
+    "price": 349,
+    "description": "Dive into virtual worlds with immersive VR technology.",
+    "category": "Gaming",
+    "image": "https://cdn.pixabay.com/photo/2017/01/20/00/30/vr-1993904_960_720.jpg"
+  },
+  {
+    "id": 14,
+    "title": "Noise Cancelling Headphones",
+    "price": 179,
+    "description": "Block out distractions and enjoy crisp audio.",
+    "category": "Audio",
+    "image": "https://cdn.pixabay.com/photo/2015/08/30/11/22/headphones-914568_960_720.jpg"
+  },
+  {
+    "id": 15,
+    "title": "Smart Light Bulbs Pack",
+    "price": 79,
+    "description": "Control your lighting with voice or app from anywhere.",
+    "category": "Smart Home",
+    "image": "https://cdn.pixabay.com/photo/2017/09/04/18/32/light-bulb-2715374_960_720.jpg"
+  },
+  {
+    "id": 16,
+    "title": "Portable Charger 20000mAh",
+    "price": 49,
+    "description": "Keep your devices powered all day with this power bank.",
+    "category": "Accessories",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/12/32/usb-1867087_960_720.jpg"
+  },
+  {
+    "id": 17,
+    "title": "Digital Camera XT10",
+    "price": 549,
+    "description": "Capture beautiful moments with clarity and speed.",
+    "category": "Electronics",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/01/32/camera-1866791_960_720.jpg"
+  },
+  {
+    "id": 18,
+    "title": "Smart Door Lock",
+    "price": 199,
+    "description": "Secure your home with fingerprint and mobile control.",
+    "category": "Smart Home",
+    "image": "https://cdn.pixabay.com/photo/2018/01/19/08/43/door-handle-3091350_960_720.jpg"
+  },
+  {
+    "id": 19,
+    "title": "Streaming Stick HD",
+    "price": 69,
+    "description": "Turn any TV into a smart TV with this powerful stick.",
+    "category": "Electronics",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/03/18/remote-control-1867432_960_720.jpg"
+  },
+  {
+    "id": 20,
+    "title": "Gaming Keyboard RGB",
+    "price": 109,
+    "description": "Mechanical keys and RGB lights for the ultimate gaming experience.",
+    "category": "Gaming",
+    "image": "https://cdn.pixabay.com/photo/2020/01/12/22/29/keyboard-4759840_960_720.jpg"
+  }
+]
