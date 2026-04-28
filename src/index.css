@@ -1,0 +1,78 @@
+:root {
+  /* Core Palette - Studio Obsidian */
+  --color-primary: #000000;
+  --color-accent: #3b82f6; /* Electric Blue */
+  --color-bg: #f5f5f5; /* Light Grey Background */
+  --color-surface: #ffffff;
+  --color-border: #e5e5e5;
+  
+  /* Text */
+  --color-text-primary: #000000;
+  --color-text-secondary: #555555;
+  --color-text-muted: #999999;
+  
+  /* Obsidian Theme (Dark Elements) */
+  --color-obsidian: #000000;
+  --color-obsidian-light: #1a1a1a;
+  
+  /* Spacing */
+  --space-2: 0.5rem;
+  --space-4: 1rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  
+  /* Typography */
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  
+  /* Effects */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px -1px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --radius-md: 12px; /* Balanced ergonomics */
+  --radius-lg: 24px;
+  
+  --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+/* Global Studio Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Custom Scrollbar - Minimalist */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #000;
+}

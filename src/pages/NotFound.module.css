@@ -1,0 +1,155 @@
+.notFound {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.visualStack {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.floatingCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 380px;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+.floatingCard span {
+  font-family: var(--font-display);
+  font-size: 120px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.ghost {
+  background-color: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  z-index: -1;
+}
+
+.content {
+  max-width: 500px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  margin-bottom: 32px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.6;
+  margin-bottom: 48px;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.primaryBtn {
+  background-color: #fff !important;
+  color: #000 !important;
+  height: 64px !important;
+  padding: 0 40px !important;
+}
+
+.backLink {
+  background: none;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.backLink:hover { opacity: 1; }
+
+/* ARCHITECTURAL BG */
+.bgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+}
+
+.gridLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255,255,255,0.05);
+}
+
+.gridLineV {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background-color: rgba(255,255,255,0.05);
+}
+
+@media (max-width: 1024px) {
+  .container { flex-direction: column; text-align: center; gap: 80px; }
+  .visualStack { width: 300px; height: 300px; }
+  .title { font-size: 64px; }
+  .actions { justify-content: center; }
+}

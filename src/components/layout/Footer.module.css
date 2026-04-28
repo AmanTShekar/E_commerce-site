@@ -1,0 +1,130 @@
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: var(--space-24) 0 var(--space-8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 80px;
+  margin-bottom: 80px;
+}
+
+.brandSide {
+  max-width: 320px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  margin-bottom: 24px;
+}
+
+.brandSide p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.6;
+  margin-bottom: 32px;
+}
+
+.socials {
+  display: flex;
+  gap: 20px;
+}
+
+.socials svg {
+  opacity: 0.4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.socials svg:hover {
+  opacity: 1;
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.linksSide {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.linkCol h4 {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 32px;
+  color: #fff;
+}
+
+.linkCol a {
+  display: block;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.linkCol a:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.bottom {
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom p {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.3;
+}
+
+.legal {
+  display: flex;
+  gap: 32px;
+}
+
+.legal a {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0.3;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: opacity 0.3s ease;
+}
+
+.legal a:hover {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: 1fr; gap: 60px; }
+  .linksSide { gap: 24px; }
+}
+
+@media (max-width: 768px) {
+  .linksSide { grid-template-columns: 1fr 1fr; }
+  .bottom { flex-direction: column; gap: 24px; text-align: center; }
+}
