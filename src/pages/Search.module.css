@@ -1,0 +1,152 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-bg);
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  padding: clamp(80px, 10vh, 120px) clamp(16px, 3vw, 40px) 40px;
+  width: 100%;
+  min-width: 0;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: clamp(24px, 5vw, 48px);
+}
+
+.searchBarWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.searchBar {
+  flex: 1;
+  min-width: min(100%, 300px);
+  height: 60px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.searchBar:focus-within {
+  border-color: #000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.searchBar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+
+.searchBar input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 0 16px;
+  border-radius: 8px;
+  height: 48px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.resultsMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .resultsMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+.resultsCount {
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.sortWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sortLabel {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.sortSelect {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(240px, 20vw, 300px), 1fr));
+  gap: clamp(16px, 3vw, 32px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 120px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.emptyIcon {
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.emptyState h3 {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.emptyState p {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}

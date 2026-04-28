@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Star, ShoppingBag, Heart, Shield, 
   Truck, RotateCcw, ChevronRight, Minus, Plus, 
-  CreditCard 
+  Share2
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import styles from './ProductDetail.module.css';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ui/ProductCard';
+import { products } from '../data/products';
+import { fadeInUp } from '../utils/animations';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,42 +21,7 @@ const ProductDetail: React.FC = () => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  // Mock product data (In production this would fetch based on ID)
-  const product = {
-    id: id || '1',
-    name: 'Mojo One Mechanical Keyboard',
-    price: 18499,
-    oldPrice: 22999,
-    discount: '20%',
-    rating: 4.9,
-    reviews: 128,
-    category: 'Hardware',
-    description: 'The Mojo One is a masterpiece of tactile engineering. Featuring a solid aluminum chassis, hot-swappable mechanical switches, and a unique triple-gasket mount system for the ultimate typing acoustics. Designed for the digital artisan who demands precision in every keystroke.',
-    specs: [
-      { label: 'Layout', value: '75% Compact' },
-      { label: 'Switches', value: 'Studio Linear v2' },
-      { label: 'Material', value: 'CNC Aluminum' },
-      { label: 'Connectivity', value: 'Triple Mode (2.4G/BT/USB)' }
-    ],
-    features: [
-      { title: 'Triple Gasket Mount', desc: 'Unparalleled acoustics and flex for a premium typing feel.' },
-      { title: 'Hot-Swap PCB', desc: 'Experiment with any mechanical switch without soldering.' },
-      { title: 'OLED Display', desc: 'Programmable screen for system metrics or custom animations.' },
-      { title: 'South-Facing RGB', desc: 'Vibrant lighting that remains visible with premium keycaps.' }
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=1200',
-      'https://images.unsplash.com/photo-1618384881928-22d4c69dec5a?auto=format&fit=crop&q=80&w=1200'
-    ]
-  };
-
-  const suggestions = [
-    { id: 's1', name: 'Studio Monitor V2', price: 42000, category: 'Hardware', rating: 4.8, image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=800' },
-    { id: 's2', name: 'Zen Audio Hub', price: 12500, category: 'Audio', rating: 4.7, image: 'https://images.unsplash.com/photo-1618384881928-22d4c69dec5a?auto=format&fit=crop&q=80&w=800' },
-    { id: 's3', name: 'Ergo Desk Pro', price: 65000, category: 'Furniture', rating: 5.0, image: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&q=80&w=800' },
-    { id: 's4', name: 'Mojo Wrist Rest', price: 3499, category: 'Accessories', rating: 4.9, image: 'https://images.unsplash.com/photo-1541140134513-85a161dc4a00?auto=format&fit=crop&q=80&w=800' },
-  ];
+  const product = products.find(p => p.id === id) || products[0];
 
   const handleAddToCart = () => {
     addToCart({
@@ -62,7 +29,7 @@ const ProductDetail: React.FC = () => {
       name: product.name,
       price: product.price,
       quantity: quantity,
-      image: product.images[0]
+      image: product.image
     });
   };
 
@@ -71,16 +38,22 @@ const ProductDetail: React.FC = () => {
     navigate('/checkout');
   };
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-  };
 
   return (
     <div className={styles.page}>
+      {/* MOBILE STICKY ACTIONS - Flipkart Style */}
+      <div className={`${styles.stickyActions} mobile-only`}>
+        <div className={styles.stickyContainer}>
+          <button className={styles.stickyAdd} onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+          <button className={styles.stickyBuy} onClick={handleBuyNow}>
+            Buy Now
+          </button>
+        </div>
+      </div>
+
       <div className={styles.container}>
-        {/* Breadcrumbs */}
         <nav className={styles.breadcrumbs}>
           <Link to="/">Home</Link>
           <ChevronRight size={14} />
@@ -90,20 +63,22 @@ const ProductDetail: React.FC = () => {
         </nav>
 
         <div className={styles.mainGrid}>
-          {/* Image Gallery */}
+          {/* Gallery with Share button */}
           <div className={styles.gallerySide}>
             <div className={styles.mainImageWrapper}>
               <motion.img 
                 key={selectedImage}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                src={product.images[selectedImage]} 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                src={product.image} 
                 alt={product.name} 
                 className={styles.mainImage}
               />
+              <button className={styles.floatingShare}><Share2 size={20} /></button>
+              <button className={styles.floatingHeart}><Heart size={20} /></button>
             </div>
             <div className={styles.thumbnails}>
-              {product.images.map((img, i) => (
+              {[product.image, product.image, product.image].map((img, i) => (
                 <div 
                   key={i} 
                   className={`${styles.thumb} ${selectedImage === i ? styles.activeThumb : ''}`}
@@ -115,7 +90,7 @@ const ProductDetail: React.FC = () => {
             </div>
           </div>
 
-          {/* Product Info */}
+          {/* Info Side */}
           <div className={styles.infoSide}>
             <motion.div {...fadeInUp}>
               <div className={styles.metaHeader}>
@@ -130,43 +105,47 @@ const ProductDetail: React.FC = () => {
                     <Star key={i} size={16} fill={i < 4 ? "#000" : "none"} stroke="#000" />
                   ))}
                 </div>
-                <span className={styles.reviewCount}>({product.reviews} Customer Reviews)</span>
+                <span className={styles.reviewCount}>(128 Reviews)</span>
               </div>
 
               <div className={styles.pricing}>
-                <span className={styles.currentPrice}>₹{product.price.toLocaleString()}</span>
-                <span className={styles.oldPrice}>₹{product.oldPrice.toLocaleString()}</span>
-                <span className={styles.discountTag}>{product.discount} OFF</span>
+                <div className={styles.priceMain}>
+                  <span className={styles.currentPrice}>₹{product.price.toLocaleString()}</span>
+                  {product.oldPrice && <span className={styles.oldPrice}>₹{product.oldPrice.toLocaleString()}</span>}
+                  {product.discount && <span className={styles.discountTag}>{product.discount} OFF</span>}
+                </div>
+                <p className={styles.taxLabel}>Inclusive of all taxes</p>
               </div>
 
-              <p className={styles.description}>{product.description}</p>
+              {/* Desktop Actions - Hidden on phone in favor of sticky bar */}
+              <div className={`${styles.desktopActions} desktop-only`}>
+                <div className={styles.quantityWrapper}>
+                  <span className={styles.actionLabel}>Quantity</span>
+                  <div className={styles.quantityControl}>
+                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus size={18} /></button>
+                    <span>{quantity}</span>
+                    <button onClick={() => setQuantity(quantity + 1)}><Plus size={18} /></button>
+                  </div>
+                </div>
+                <div className={styles.buttonGroup}>
+                  <Button size="lg" className={styles.addBtn} onClick={handleAddToCart}>
+                    <ShoppingBag size={20} />
+                    Add to Cart
+                  </Button>
+                  <Button size="lg" variant="outline" className={styles.buyNowBtn} onClick={handleBuyNow}>
+                    Buy Now
+                  </Button>
+                </div>
+              </div>
 
               <div className={styles.specGrid}>
-                {product.specs.map((spec, i) => (
+                {Object.entries(product.specs || {}).map(([label, value], i) => (
                   <div key={i} className={styles.specItem}>
-                    <span className={styles.specLabel}>{spec.label}</span>
-                    <span className={styles.specValue}>{spec.value}</span>
+                    <span className={styles.specLabel}>{label}</span>
+                    <span className={styles.specValue}>{value}</span>
                   </div>
                 ))}
               </div>
-
-              <div className={styles.actions}>
-                <div className={styles.quantityControl}>
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus size={18} /></button>
-                  <span>{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)}><Plus size={18} /></button>
-                </div>
-                <Button size="lg" className={styles.addBtn} onClick={handleAddToCart}>
-                  <ShoppingBag size={20} />
-                  Add to Cart
-                </Button>
-                <button className={styles.wishBtn}><Heart size={20} /></button>
-              </div>
-
-              <Button size="lg" variant="outline" className={styles.buyNowBtn} onClick={handleBuyNow}>
-                <CreditCard size={20} />
-                Buy It Now
-              </Button>
 
               <div className={styles.guarantees}>
                 <div className={styles.guaranteeItem}>
@@ -183,13 +162,6 @@ const ProductDetail: React.FC = () => {
                     <span>30-day hassle-free policy</span>
                   </div>
                 </div>
-                <div className={styles.guaranteeItem}>
-                  <Shield size={20} />
-                  <div>
-                    <strong>2 Year Warranty</strong>
-                    <span>Full brand coverage</span>
-                  </div>
-                </div>
               </div>
             </motion.div>
           </div>
@@ -198,16 +170,18 @@ const ProductDetail: React.FC = () => {
         {/* Feature Highlights */}
         <section className={styles.featuresSection}>
           <div className={styles.sectionHeader}>
-            <h2>Tactile Excellence</h2>
-            <p>Engineered for those who appreciate the nuance of a single keystroke.</p>
+            <h2>Studio Engineering</h2>
+            <p>Purpose-built for the modern digital workflow.</p>
           </div>
           <div className={styles.featuresGrid}>
-            {product.features.map((feature, i) => (
+            {[
+              { title: 'Premium Build', desc: 'Crafted with high-grade materials for long-lasting durability.' },
+              { title: 'User Centric', desc: 'Designed with a focus on ergonomics and ease of use.' },
+              { title: 'Studio Grade', desc: 'Meets the rigorous standards of professional digital creators.' }
+            ].map((feature, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                {...fadeInUp}
                 transition={{ delay: i * 0.1 }}
                 className={styles.featureCard}
               >
@@ -221,11 +195,11 @@ const ProductDetail: React.FC = () => {
         {/* Recommendations */}
         <section className={styles.recommendations}>
           <div className={styles.sectionHeader}>
-            <h2>Synergy Collection</h2>
-            <p>Items curated to complement your studio setup.</p>
+            <h2>Complete the Setup</h2>
+            <p>Curated assets that complement this product.</p>
           </div>
           <div className={styles.suggestionGrid}>
-            {suggestions.map((item) => (
+            {products.slice(0, 4).map((item) => (
               <ProductCard key={item.id} {...item} />
             ))}
           </div>

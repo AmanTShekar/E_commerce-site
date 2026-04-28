@@ -1,50 +1,53 @@
 .notFound {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #000;
   color: #fff;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
+  padding: clamp(60px, 10vh, 100px) 0;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   width: 100%;
-  padding: 0 40px;
+  padding: 0 clamp(16px, 5vw, 40px);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: clamp(40px, 8vw, 120px);
   position: relative;
   z-index: 10;
 }
 
 .visualStack {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: clamp(280px, 30vw, 400px);
+  height: clamp(280px, 30vw, 400px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .floatingCard {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 280px;
-  height: 380px;
+  width: clamp(240px, 20vw, 280px);
+  height: clamp(320px, 25vw, 380px);
   background-color: #fff;
   color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -50%);
   border-radius: 20px;
   box-shadow: 0 40px 100px rgba(0,0,0,0.5);
 }
 
 .floatingCard span {
   font-family: var(--font-display);
-  font-size: 120px;
+  font-size: clamp(80px, 10vw, 120px);
   font-weight: 900;
   letter-spacing: -0.05em;
 }
@@ -54,15 +57,23 @@
   border: 1px solid rgba(255,255,255,0.2);
   color: #fff;
   z-index: -1;
+  transform: translate(20px, 20px);
 }
 
 .content {
   max-width: 500px;
+  text-align: center;
+}
+
+@media (min-width: 1025px) {
+  .content {
+    text-align: left;
+  }
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: 80px;
+  font-size: clamp(32px, 8vw, var(--text-2xl));
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -0.05em;
@@ -70,7 +81,7 @@
 }
 
 .description {
-  font-size: 18px;
+  font-size: clamp(16px, 2vw, 18px);
   line-height: 1.6;
   opacity: 0.6;
   margin-bottom: 48px;
@@ -79,8 +90,16 @@
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 32px;
+}
+
+@media (min-width: 1025px) {
+  .actions {
+    justify-content: flex-start;
+  }
 }
 
 .primaryBtn {
@@ -108,7 +127,6 @@
 
 .backLink:hover { opacity: 1; }
 
-/* ARCHITECTURAL BG */
 .bgWrapper {
   position: absolute;
   top: 0;
@@ -145,11 +163,4 @@
   width: 1px;
   height: 100%;
   background-color: rgba(255,255,255,0.05);
-}
-
-@media (max-width: 1024px) {
-  .container { flex-direction: column; text-align: center; gap: 80px; }
-  .visualStack { width: 300px; height: 300px; }
-  .title { font-size: 64px; }
-  .actions { justify-content: center; }
 }

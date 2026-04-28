@@ -12,6 +12,9 @@ import { useCart } from '../context/CartContext';
 
 const Checkout: React.FC = () => {
   const [step, setStep] = useState(1);
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const { cart, total } = useCart();
   const navigate = useNavigate();
 
@@ -23,6 +26,14 @@ const Checkout: React.FC = () => {
 
   const gst = total * 0.18;
   const grandTotal = total + gst;
+
+  const validateStep1 = () => {
+    if (!email || !firstName || !lastName) {
+      alert('Please provide deployment coordinates and identity.');
+      return false;
+    }
+    return true;
+  };
 
   return (
     <div className={styles.page}>
@@ -66,37 +77,55 @@ const Checkout: React.FC = () => {
                   
                   <div className={styles.inputGroup}>
                     <label>Email Address</label>
-                    <input type="email" placeholder="artisan@studio.com" />
+                    <input 
+                      type="email" 
+                      placeholder="artisan@studio.com" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
                   </div>
 
                   <div className={styles.inputRow}>
                     <div className={styles.inputGroup}>
                       <label>First Name</label>
-                      <input type="text" placeholder="John" />
+                      <input 
+                        type="text" 
+                        placeholder="John" 
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                      />
                     </div>
                     <div className={styles.inputGroup}>
                       <label>Last Name</label>
-                      <input type="text" placeholder="Doe" />
+                      <input 
+                        type="text" 
+                        placeholder="Doe" 
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className={styles.inputGroup}>
                     <label>Street Address</label>
-                    <input type="text" placeholder="Architectural Plaza, Studio 404" />
+                    <input type="text" placeholder="Architectural Plaza, Studio 404" required />
                   </div>
 
                   <div className={styles.inputRow}>
                     <div className={styles.inputGroup}>
                       <label>City</label>
-                      <input type="text" placeholder="Mumbai" />
+                      <input type="text" placeholder="Mumbai" required />
                     </div>
                     <div className={styles.inputGroup}>
                       <label>Postal Code</label>
-                      <input type="text" placeholder="400001" />
+                      <input type="text" placeholder="400001" required />
                     </div>
                   </div>
 
-                  <Button size="lg" className={styles.submitBtn} onClick={() => setStep(2)}>
+                  <Button size="lg" className={styles.submitBtn} onClick={() => validateStep1() && setStep(2)}>
                     Proceed to Payment
                   </Button>
                 </motion.div>
@@ -185,7 +214,7 @@ const Checkout: React.FC = () => {
                     <h3>₹{grandTotal.toLocaleString()}</h3>
                   </div>
 
-                  <Button size="lg" className={styles.placeOrderBtn} onClick={() => navigate('/profile')}>
+                  <Button size="lg" className={styles.placeOrderBtn} onClick={() => navigate('/orders')}>
                     Complete Deployment <CheckCircle size={20} />
                   </Button>
                   <button className={styles.backBtn} onClick={() => setStep(2)}>Modify Payment</button>

@@ -23,16 +23,23 @@ const Footer: React.FC = () => {
             <div className={styles.linkCol}>
               <h4>Marketplace</h4>
               <Link to="/discovery">All Products</Link>
-              <Link to="/discovery">Featured</Link>
+              <Link to="/search">Featured</Link>
               <Link to="/discovery">Studio Kits</Link>
               <Link to="/discovery">Hardware</Link>
             </div>
             <div className={styles.linkCol}>
               <h4>Company</h4>
               <Link to="/about">Our Story</Link>
-              <Link to="/">Careers</Link>
-              <Link to="/">Sustainability</Link>
-              <Link to="/">Press</Link>
+              <Link to="/contact">Careers</Link>
+              <Link to="/about">Sustainability</Link>
+              <Link to="/about">Press</Link>
+            </div>
+            <div className={styles.linkCol}>
+              <h4>Legal</h4>
+              <Link to="/privacy">Privacy Protocol</Link>
+              <Link to="/terms">Terms of Deployment</Link>
+              <Link to="/terms">Cookies</Link>
+              <Link to="/terms">Security</Link>
             </div>
             <div className={styles.linkCol}>
               <h4>Support</h4>
@@ -47,8 +54,8 @@ const Footer: React.FC = () => {
         <div className={styles.bottom}>
           <p>© 2024 NEXMART STUDIO. ALL RIGHTS RESERVED.</p>
           <div className={styles.legal}>
-            <Link to="/">Privacy Policy</Link>
-            <Link to="/">Terms of Service</Link>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Service</Link>
           </div>
         </div>
       </div>

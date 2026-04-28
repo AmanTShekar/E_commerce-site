@@ -2,13 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './About.module.css';
 import aboutHeroImg from '../assets/images/about_hero_modern_studio_1777330720335.png';
+import { fadeInUp } from '../utils/animations';
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-};
 
 const About: React.FC = () => {
   return (

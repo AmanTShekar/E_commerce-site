@@ -3,19 +3,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, Package, Settings, Heart, LogOut, Shield, CreditCard, Bell, MapPin, Search
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import styles from './Profile.module.css';
 import Button from '../components/ui/Button';
 
+// Utils
+import { fadePage } from '../utils/animations';
+
 const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState('orders');
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const user = {
-    name: 'Alex Obsidian',
-    email: 'alex@studio.com',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2080&auto=format&fit=crop',
-    joined: 'January 2024',
-    tier: 'Platinum Member',
-    credits: '₹2,500'
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   const menuItems = [
@@ -28,12 +31,17 @@ const Profile: React.FC = () => {
     { id: 'settings', icon: <Settings size={18} />, label: 'System Prefs' },
   ];
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
-  };
+  if (!user) {
+    return (
+      <div className={styles.page} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <h2>Access Restricted</h2>
+          <p>Please initialize your session to view your profile.</p>
+          <Button onClick={() => navigate('/login')} style={{ marginTop: '20px' }}>Login</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -44,12 +52,12 @@ const Profile: React.FC = () => {
           <aside className={styles.sidebar}>
             <div className={styles.userSection}>
               <div className={styles.avatarWrapper}>
-                <img src={user.avatar} alt={user.name} className={styles.avatar} />
+                <img src={user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2080&auto=format&fit=crop'} alt={user.name} className={styles.avatar} />
                 <div className={styles.onlineBadge} />
               </div>
               <div className={styles.userInfo}>
                 <h2>{user.name}</h2>
-                <span className={styles.userTier}>{user.tier}</span>
+                <span className={styles.userTier}>Platinum Member</span>
               </div>
             </div>
 
@@ -70,9 +78,9 @@ const Profile: React.FC = () => {
             <div className={styles.sidebarFooter}>
               <div className={styles.creditBox}>
                 <span>Studio Credits</span>
-                <strong>{user.credits}</strong>
+                <strong>₹2,500</strong>
               </div>
-              <button className={styles.logoutBtn}>
+              <button className={styles.logoutBtn} onClick={handleLogout}>
                 <LogOut size={16} />
                 <span>Log Out</span>
               </button>
@@ -95,7 +103,7 @@ const Profile: React.FC = () => {
 
             <AnimatePresence mode="wait">
               {activeTab === 'orders' && (
-                <motion.div key="orders" {...fadeInUp} className={styles.section}>
+                <motion.div key="orders" {...fadePage} className={styles.section}>
                   <div className={styles.titleArea}>
                     <h1>Recent Deployments</h1>
                     <div className={styles.filterGroup}>
@@ -151,7 +159,7 @@ const Profile: React.FC = () => {
               )}
 
               {activeTab === 'profile' && (
-                <motion.div key="profile" {...fadeInUp} className={styles.section}>
+                <motion.div key="profile" {...fadePage} className={styles.section}>
                   <div className={styles.titleArea}>
                     <h1>Studio Profile</h1>
                   </div>
@@ -207,7 +215,7 @@ const Profile: React.FC = () => {
               )}
 
               {activeTab === 'payments' && (
-                <motion.div key="payments" {...fadeInUp} className={styles.section}>
+                <motion.div key="payments" {...fadePage} className={styles.section}>
                   <div className={styles.titleArea}>
                     <h1>Financials</h1>
                   </div>

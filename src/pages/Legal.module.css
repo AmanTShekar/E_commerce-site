@@ -1,0 +1,27 @@
+.page {
+  padding: clamp(80px, 15vh, 120px) clamp(16px, 5vw, 40px);
+  min-height: 100vh;
+  background: #fff;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  margin-bottom: 40px;
+}
+
+.content {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+}
+
+.paragraph {
+  margin-bottom: 24px;
+}

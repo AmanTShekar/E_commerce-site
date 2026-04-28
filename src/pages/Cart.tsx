@@ -14,6 +14,8 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Button from '../components/ui/Button';
+import CartItem from '../components/ui/CartItem';
+import EmptyState from '../components/ui/EmptyState';
 import styles from './Cart.module.css';
 
 const Cart: React.FC = () => {
@@ -28,21 +30,33 @@ const Cart: React.FC = () => {
 
   if (cart.length === 0) {
     return (
-      <div className={styles.emptyPage}>
-        <motion.div {...fadeInUp} className={styles.emptyContent}>
-          <ShoppingBag size={80} strokeWidth={1} />
-          <h1>Your collection is empty.</h1>
-          <p>Discover high-performance utility for your digital workspace.</p>
-          <Link to="/discovery">
-            <Button size="lg">Explore Discovery</Button>
-          </Link>
-        </motion.div>
+      <div className={styles.page}>
+        <div className={styles.container}>
+          <EmptyState 
+            type="cart" 
+            title="Your collection is a blank slate." 
+            message="No high-performance assets have been added to your current session. Discover purposeful hardware and furniture."
+          />
+        </div>
       </div>
     );
   }
 
   return (
     <div className={styles.page}>
+      {/* MOBILE STICKY CHECKOUT BAR - Flipkart Style */}
+      <div className={`${styles.stickyCheckout} mobile-only`}>
+        <div className={styles.stickyContainer}>
+          <div className={styles.stickyTotal}>
+            <span>Total Amount</span>
+            <h3>₹{total.toLocaleString()}</h3>
+          </div>
+          <button className={styles.stickyBtn} onClick={() => navigate('/checkout')}>
+            Place Order
+          </button>
+        </div>
+      </div>
+
       <div className={styles.container}>
         <motion.div {...fadeInUp} className={styles.header}>
           <h1 className={styles.title}>Your Collection</h1>
@@ -53,41 +67,12 @@ const Cart: React.FC = () => {
           <div className={styles.itemsSide}>
             <AnimatePresence>
               {cart.map(item => (
-                <motion.div 
-                  key={item.id} 
-                  layout 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  className={styles.item}
-                >
-                  <div className={styles.itemImageWrapper}>
-                    <img src={item.image} alt={item.name} className={styles.itemImage} />
-                  </div>
-                  <div className={styles.itemInfo}>
-                    <div className={styles.itemHeader}>
-                      <div>
-                        <span className={styles.category}>Hardware</span>
-                        <h3>{item.name}</h3>
-                      </div>
-                      <button className={styles.removeBtn} onClick={() => removeFromCart(item.id)}>
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                    
-                    <div className={styles.itemControls}>
-                      <div className={styles.quantity}>
-                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)}><Minus size={14} /></button>
-                        <span>{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}><Plus size={14} /></button>
-                      </div>
-                      <div className={styles.itemActions}>
-                        <button className={styles.secondaryAction}><Heart size={16} /> Save for Later</button>
-                      </div>
-                      <p className={styles.itemPrice}>₹{(item.price * item.quantity).toLocaleString()}</p>
-                    </div>
-                  </div>
-                </motion.div>
+                <CartItem 
+                  key={item.id}
+                  item={item}
+                  onRemove={removeFromCart}
+                  onUpdateQuantity={updateQuantity}
+                />
               ))}
             </AnimatePresence>
 

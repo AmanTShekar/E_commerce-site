@@ -1,142 +1,169 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Mail, Lock, User, ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Mail, Lock, User, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import styles from './Login.module.css';
+import { useAuth } from '../context/AuthContext';
 
 const Login: React.FC = () => {
-  const [mode, setMode] = useState<'login' | 'signup'>('login');
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  const toggleMode = () => setMode(prev => prev === 'login' ? 'signup' : 'login');
-
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return;
+    login(email, password);
+    navigate('/');
   };
+
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password || !name) return;
+    login(email, password);
+    navigate('/');
+  };
+
+  const toggleMode = () => setIsSignUp(!isSignUp);
 
   return (
     <div className={styles.page}>
-      {/* Background decoration */}
       <div className={styles.bgGlow} />
       
-      <button className={styles.backBtn} onClick={() => navigate('/')}>
-        <ArrowLeft size={18} /> <span>Back to Studio</span>
+      <button 
+        id="back-to-home"
+        className={styles.backBtn} 
+        onClick={() => navigate('/')}
+      >
+        <ArrowLeft size={18} /> <span>Return to Store</span>
       </button>
 
-      <div className={styles.authCard}>
-        <div className={styles.mainGrid}>
-          
-          {/* VISUAL PANEL */}
-          <div className={styles.visualPanel}>
-            <div className={styles.panelContent}>
-              <div className={styles.logo}>NEXMART</div>
-              <div className={styles.panelText}>
-                <h2>{mode === 'login' ? 'Welcome back, artisan.' : 'Start your collection.'}</h2>
-                <p>Engineering the definitive digital workspace with curated aesthetic hardware.</p>
-              </div>
-              <div className={styles.trustBadge}>
-                <ShieldCheck size={16} />
-                <span>Verified Studio Environment</span>
+      <div className={`${styles.authCard} ${isSignUp ? styles.rightPanelActive : ''}`} id="auth-card">
+        
+        {/* SIGN UP FORM */}
+        <div className={`${styles.formContainer} ${styles.signUpContainer}`}>
+          <form className={styles.formContent} id="signup-form" onSubmit={handleSignup}>
+            <h1>Create Account</h1>
+            <p>Join the collection of global artisans.</p>
+            
+            <div className={styles.inputGroup}>
+              <label htmlFor="signup-name">Full Identity</label>
+              <div className={styles.inputField}>
+                <User size={18} />
+                <input 
+                  id="signup-name" 
+                  type="text" 
+                  placeholder="Alex Obsidian" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required 
+                />
               </div>
             </div>
-            {/* Sliding overlay for desktop */}
-            <motion.div 
-              className={styles.slidingOverlay}
-              animate={{ x: mode === 'login' ? '0%' : '100%' }}
-              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-            />
-          </div>
 
-          {/* FORMS */}
-          <div className={styles.formPanel}>
-            <AnimatePresence mode="wait">
-              {mode === 'login' ? (
-                <motion.div key="login" {...fadeInUp} className={styles.formWrapper}>
-                  <header>
-                    <h3>Sign In</h3>
-                    <p>Enter your credentials to access the vault.</p>
-                  </header>
+            <div className={styles.inputGroup}>
+              <label htmlFor="signup-email">Workspace Email</label>
+              <div className={styles.inputField}>
+                <Mail size={18} />
+                <input 
+                  id="signup-email" 
+                  type="email" 
+                  placeholder="artisan@studio.com" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+              </div>
+            </div>
 
-                  <form onSubmit={(e) => { e.preventDefault(); navigate('/'); }} className={styles.form}>
-                    <div className={styles.inputStack}>
-                      <div className={styles.inputBox}>
-                        <label>Email Address</label>
-                        <div className={styles.inputInner}>
-                          <Mail size={18} />
-                          <input type="email" placeholder="artisan@studio.com" required />
-                        </div>
-                      </div>
-                      <div className={styles.inputBox}>
-                        <label>Security Key</label>
-                        <div className={styles.inputInner}>
-                          <Lock size={18} />
-                          <input type="password" placeholder="••••••••" required />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.formMeta}>
-                      <span className={styles.forgot}>Lost Access?</span>
-                    </div>
-                    <Button type="submit" size="lg" className={styles.submitBtn}>
-                      Initialize Session <ArrowRight size={18} />
-                    </Button>
-                  </form>
+            <div className={styles.inputGroup}>
+              <label htmlFor="signup-password">Security Key</label>
+              <div className={styles.inputField}>
+                <Lock size={18} />
+                <input 
+                  id="signup-password" 
+                  type="password" 
+                  placeholder="••••••••" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
+              </div>
+            </div>
 
-                  <footer>
-                    <span>New to the studio?</span>
-                    <button onClick={toggleMode} className={styles.toggleBtn}>Create Account</button>
-                  </footer>
-                </motion.div>
-              ) : (
-                <motion.div key="signup" {...fadeInUp} className={styles.formWrapper}>
-                  <header>
-                    <h3>Create Account</h3>
-                    <p>Register your identity within the ecosystem.</p>
-                  </header>
-
-                  <form onSubmit={(e) => { e.preventDefault(); navigate('/'); }} className={styles.form}>
-                    <div className={styles.inputStack}>
-                      <div className={styles.inputBox}>
-                        <label>Full Name</label>
-                        <div className={styles.inputInner}>
-                          <User size={18} />
-                          <input type="text" placeholder="Alex Obsidian" required />
-                        </div>
-                      </div>
-                      <div className={styles.inputBox}>
-                        <label>Email Address</label>
-                        <div className={styles.inputInner}>
-                          <Mail size={18} />
-                          <input type="email" placeholder="artisan@studio.com" required />
-                        </div>
-                      </div>
-                      <div className={styles.inputBox}>
-                        <label>Create Security Key</label>
-                        <div className={styles.inputInner}>
-                          <Lock size={18} />
-                          <input type="password" placeholder="••••••••" required />
-                        </div>
-                      </div>
-                    </div>
-                    <Button type="submit" size="lg" className={styles.submitBtn}>
-                      Register Identity <ArrowRight size={18} />
-                    </Button>
-                  </form>
-
-                  <footer>
-                    <span>Existing member?</span>
-                    <button onClick={toggleMode} className={styles.toggleBtn}>Sign In Instead</button>
-                  </footer>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
+            <Button id="signup-submit" type="submit" variant="primary" size="lg" className={styles.submitBtn}>
+              Register Identity <ArrowRight size={18} />
+            </Button>
+          </form>
         </div>
+
+        {/* SIGN IN FORM */}
+        <div className={`${styles.formContainer} ${styles.signInContainer}`}>
+          <form className={styles.formContent} id="login-form" onSubmit={handleLogin}>
+            <h1>Welcome Back</h1>
+            <p>Enter the vault to access your curated gear.</p>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="login-email">Artisan Email</label>
+              <div className={styles.inputField}>
+                <Mail size={18} />
+                <input 
+                  id="login-email" 
+                  type="email" 
+                  placeholder="artisan@studio.com" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+              </div>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="login-password">Security Key</label>
+              <div className={styles.inputField}>
+                <Lock size={18} />
+                <input 
+                  id="login-password" 
+                  type="password" 
+                  placeholder="••••••••" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
+              </div>
+            </div>
+
+            <span className={styles.forgot}>Lost Access?</span>
+
+            <Button id="login-submit" type="submit" variant="primary" size="lg" className={styles.submitBtn}>
+              Initialize Session <ArrowRight size={18} />
+            </Button>
+          </form>
+        </div>
+
+        {/* SLIDING OVERLAY */}
+        <div className={styles.overlayContainer}>
+          <div className={styles.overlay}>
+            <div className={`${styles.overlayPanel} ${styles.overlayLeft}`}>
+              <h2>Studio Member?</h2>
+              <p>To stay connected with us please login with your personal info</p>
+              <button className={styles.ghostBtn} id="toggle-signin" onClick={toggleMode}>
+                Sign In
+              </button>
+            </div>
+            <div className={`${styles.overlayPanel} ${styles.overlayRight}`}>
+              <h2>Hello, Artisan!</h2>
+              <p>Enter your personal details and start your journey with us</p>
+              <button className={styles.ghostBtn} id="toggle-signup" onClick={toggleMode}>
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

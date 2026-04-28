@@ -1,63 +1,146 @@
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  transition: all var(--transition-normal);
-  border-radius: var(--radius-sm); /* Subtle ergonomic roundness */
-  cursor: pointer;
+  gap: var(--space-2);
   border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
 }
 
+/* Base Hover */
+.button:hover {
+  transform: translateY(-4px);
+  letter-spacing: 0.18em;
+}
+
+.button:active {
+  transform: translateY(-1px) scale(0.97);
+  transition: all 0.1s ease;
+}
+
+/* Primary (Black) - Studio Series Special */
 .primary {
-  background-color: #000;
+  background: #000;
   color: #fff;
+  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
 }
 
 .primary:hover {
-  background-color: var(--color-accent); /* Electric Blue */
-  transform: translateY(-2px);
+  background: #000;
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(59, 130, 246, 0.4); /* Electric Blue Glow */
+  transform: translateY(-5px) scale(1.02);
 }
 
-.secondary {
-  background-color: #f5f5f5;
+/* Tech-Scanner Shine for Primary */
+.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.2),
+    rgba(255, 255, 255, 0.4),
+    rgba(59, 130, 246, 0.2),
+    transparent
+  );
+  transition: none;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.primary:hover::before {
+  left: 200%;
+  transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Secondary & Others - Standard Shine */
+.secondary, .ghost {
+  background: transparent;
   color: #000;
   border: 1px solid var(--color-border);
 }
 
+.button:not(.primary)::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: rotate(35deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.button:not(.primary):hover::after {
+  left: 150%;
+  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .secondary:hover {
-  background-color: #fff;
   border-color: #000;
+  background: rgba(0, 0, 0, 0.02);
 }
 
-.outline {
-  background-color: transparent;
+.ghost {
+  border: none;
+  color: var(--color-text-secondary);
+}
+
+.ghost:hover {
+  background: rgba(0, 0, 0, 0.05);
   color: #000;
-  border: 1.5px solid #000;
+  transform: translateY(-2px) translateX(4px);
 }
 
-.outline:hover {
-  background-color: #000;
-  color: #fff;
+/* Size Variants */
+.sm {
+  padding: 10px 18px;
+  font-size: 0.7rem;
 }
 
-/* Studio Special Variants */
-.whiteBtn {
-  background-color: #fff !important;
-  color: #000 !important;
-  border: 1.5px solid #fff !important;
+.md {
+  padding: 14px 28px;
+  font-size: 0.75rem;
 }
 
-.whiteBtn:hover {
-  background-color: var(--color-accent) !important;
-  border-color: var(--color-accent) !important;
-  color: #fff !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+.lg {
+  padding: 20px 44px;
+  font-size: 0.85rem;
 }
 
-.sm { padding: 10px 20px; font-size: 11px; }
-.md { padding: 14px 28px; font-size: 12px; }
-.lg { padding: 18px 36px; font-size: 13px; }
+.lg:hover {
+  letter-spacing: 0.22em;
+}
+
+/* Icon Support */
+.button svg {
+  transition: transform 0.2s ease;
+}
+
+.button:hover svg {
+  transform: scale(1.15) rotate(5deg);
+}

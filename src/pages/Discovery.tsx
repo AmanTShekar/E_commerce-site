@@ -1,29 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Smartphone, Monitor, Headphones, Layout, MousePointer, Gamepad2, Lamp, Sofa, Watch, Coffee } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { categories } from '../data/categories';
+import { products } from '../data/products';
 import styles from './Discovery.module.css';
 
 import ProductCard from '../components/ui/ProductCard';
-
-const categories = [
-  { icon: <Smartphone />, label: 'Mobiles', count: '1.2k' },
-  { icon: <Monitor />, label: 'Laptops', count: '840' },
-  { icon: <Headphones />, label: 'Audio', count: '1.5k' },
-  { icon: <Layout />, label: 'Hardware', count: '920' },
-  { icon: <MousePointer />, label: 'Accessories', count: '2.1k' },
-  { icon: <Gamepad2 />, label: 'Gaming', count: '600' },
-  { icon: <Lamp />, label: 'Lighting', count: '450' },
-  { icon: <Sofa />, label: 'Furniture', count: '320' },
-  { icon: <Watch />, label: 'Wearables', count: '1.1k' },
-  { icon: <Coffee />, label: 'Appliances', count: '240' },
-];
-
-const trendingProducts = [
-  { id: 't1', name: 'Mojo One Keyboard', price: 18499, oldPrice: 22999, discount: '20%', category: 'Hardware', rating: 4.9, image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=800' },
-  { id: 't2', name: 'Studio Monitor V2', price: 42000, category: 'Hardware', rating: 4.8, image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=800' },
-  { id: 't3', name: 'Ergo Desk Pro', price: 65000, discount: '10%', category: 'Furniture', rating: 5.0, image: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&q=80&w=800' },
-  { id: 't4', name: 'Zen Audio Hub', price: 12500, category: 'Audio', rating: 4.7, image: 'https://images.unsplash.com/photo-1618384881928-22d4c69dec5a?auto=format&fit=crop&q=80&w=800' },
-];
 
 const Discovery: React.FC = () => {
   return (
@@ -88,7 +70,7 @@ const Discovery: React.FC = () => {
             <p>Popular assets across the ecosystem.</p>
           </div>
           <div className={styles.productGrid}>
-            {trendingProducts.map((product) => (
+            {products.slice(0, 4).map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
           </div>

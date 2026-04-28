@@ -1,34 +1,25 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
-  ShieldCheck, Truck, RotateCcw, Shield, ArrowRight, ArrowLeft,
-  Smartphone, Monitor, Headphones, Layout, Coffee, Sofa,
-  MousePointer, Gamepad2, Lamp, Watch, Zap, Quote,
-  ChevronLeft, ChevronRight
+  Sparkles, ArrowRight, Quote, ShoppingCart, Star, ChevronLeft, ChevronRight,
+  Truck, RotateCcw, ShieldCheck, Shield, Zap, Smartphone, Laptop, Cpu, Layout, Globe
 } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+import { categories } from '../data/categories';
+import { products } from '../data/products';
 import Button from '../components/ui/Button';
 import ProductCard from '../components/ui/ProductCard';
 import styles from './Home.module.css';
 
+// Hooks & Utils
+import { useScrollPosition } from '../hooks/useScrollPosition';
+import { fadeInUp, staggerContainer } from '../utils/animations';
+
 // Assets
 import heroImg from '../assets/images/hero.png';
-import keyboardImg from '../assets/images/keyboards.png';
-import audioImg from '../assets/images/audio.png';
 import galleryImg1 from '../assets/images/home_workspace_lifestyle_1_1777330794916.png';
 import aboutHeroImg from '../assets/images/about_hero_modern_studio_1777330720335.png';
-
-const categories = [
-  { icon: <Smartphone />, label: 'Mobiles' },
-  { icon: <Monitor />, label: 'Laptops' },
-  { icon: <Headphones />, label: 'Audio' },
-  { icon: <Layout />, label: 'Hardware' },
-  { icon: <MousePointer />, label: 'Accessories' },
-  { icon: <Gamepad2 />, label: 'Gaming' },
-  { icon: <Lamp />, label: 'Lighting' },
-  { icon: <Sofa />, label: 'Furniture' },
-  { icon: <Watch />, label: 'Wearables' },
-  { icon: <Coffee />, label: 'Appliances' },
-];
 
 const gridCategories = [
   {
@@ -49,34 +40,50 @@ const gridCategories = [
   }
 ];
 
-const bestDeals = [
-  { id: '1', name: 'S1 Mechanical Keyboard', price: 18500, oldPrice: 24500, discount: '25%', category: 'Hardware', rating: 4.9, image: keyboardImg },
-  { id: '2', name: 'H1 Wireless Studio', price: 29900, oldPrice: 35000, discount: '15%', category: 'Audio', rating: 5.0, image: audioImg },
-  { id: '3', name: 'M1 Minimalist Mouse', price: 8900, oldPrice: 12000, discount: '26%', category: 'Hardware', rating: 4.7, image: keyboardImg },
-  { id: '4', name: 'T1 Desk Mat (Wool)', price: 4500, oldPrice: 6000, discount: '25%', category: 'Accessories', rating: 4.8, image: audioImg },
-  { id: '5', name: 'W1 Walnut Stand', price: 12500, category: 'Furniture', rating: 4.9, image: keyboardImg },
-  { id: '6', name: 'C1 Task Chair', price: 42000, category: 'Furniture', rating: 5.0, image: audioImg },
-];
-
 const testimonials = [
   { quote: "NEXMART redefined my workspace. The build quality of the S1 is genuinely world-class.", author: "Sarah Jenkins", role: "Director", company: "Flux Studio" },
   { quote: "Minimalism met utility. The M1 mouse is the most precise tool I've used in a decade.", author: "Marcus Thorne", role: "Sr. Designer", company: "Technic" },
   { quote: "The H1 audio profile is exceptionally flat and honest. Perfect for long mixing sessions.", author: "Elena Rossi", role: "Audio Engineer", company: "Sonic Lab" },
 ];
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-};
-
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const newArrivalsRef = useRef<HTMLDivElement>(null);
+  const trendingRef = useRef<HTMLDivElement>(null);
+  const isScrolled = useScrollPosition(20);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  
+  const [isHoveringDeals, setIsHoveringDeals] = useState(false);
+  const [isHoveringNew, setIsHoveringNew] = useState(false);
+  const [isHoveringTrending, setIsHoveringTrending] = useState(false);
+  
+  const [currentHero, setCurrentHero] = useState(0);
+  const heroSlides = [
+    {
+      subtitle: "The Masterpiece Collection",
+      title: "Audio Studio Pro",
+      image: heroImg,
+      cta: "Explore Assets",
+      link: "/search?category=Audio"
+    },
+    {
+      subtitle: "Precision Engineering",
+      title: "Obsidian Keys",
+      image: galleryImg1,
+      cta: "Discover More",
+      link: "/search?category=Hardware"
+    },
+    {
+      subtitle: "The Workspace Revolution",
+      title: "Ergo Evolution",
+      image: aboutHeroImg,
+      cta: "Shop Now",
+      link: "/search?category=Office"
+    }
+  ];
   
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -87,6 +94,11 @@ const Home: React.FC = () => {
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.5]);
 
+  const flashDeals = products.filter(p => p.isFlashDeal);
+  const featuredItems = products.filter(p => p.rating >= 4.7).slice(0, 10);
+  const newArrivals = products.filter(p => p.isNew).slice(0, 10);
+  const trendingItems = products.slice(5, 15); // Dynamic trending
+
   const checkScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -96,16 +108,38 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    
-    // Initial check for container scroll
     checkScroll();
     
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const createAutoScroll = (ref: React.RefObject<HTMLDivElement>, isHovering: boolean) => {
+      return setInterval(() => {
+        if (ref.current && !isHovering) {
+          const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+          const isAtEnd = Math.ceil(scrollLeft + clientWidth) >= scrollWidth - 10;
+          
+          if (isAtEnd) {
+            ref.current.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            ref.current.scrollBy({ left: 400, behavior: 'smooth' });
+          }
+        }
+      }, 5000);
+    };
+
+    const dealsInterval = createAutoScroll(scrollContainerRef, isHoveringDeals);
+    const newInterval = createAutoScroll(newArrivalsRef, isHoveringNew);
+    const trendingInterval = createAutoScroll(trendingRef, isHoveringTrending);
+    
+    const heroInterval = setInterval(() => {
+      setCurrentHero(prev => (prev + 1) % heroSlides.length);
+    }, 6000);
+
+    return () => {
+      clearInterval(dealsInterval);
+      clearInterval(newInterval);
+      clearInterval(trendingInterval);
+      clearInterval(heroInterval);
+    };
+  }, [isHoveringDeals, isHoveringNew, isHoveringTrending, heroSlides.length]);
 
   const scrollDeals = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -120,10 +154,9 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      {/* Scroll Progress Bar */}
       <motion.div className={styles.progressBar} style={{ scaleX }} />
 
-      {/* 1. TOP TRUST STRIP (Now at the very top) */}
+      {/* 1. TOP TRUST STRIP */}
       <div className={styles.topTrustStrip}>
         <div className={styles.container}>
           <div className={styles.trustGrid}>
@@ -147,25 +180,45 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. CATEGORY NAV (Pinned to Navbar) */}
-      <nav className={`${styles.categoryNav} ${isScrolled ? styles.scrolled : ''}`}>
+      {/* 2. CATEGORY NAV */}
+      <nav className={`${styles.categoryNav} ${isScrolled ? styles.scrolled : ''} desktop-only`}>
         <div className={styles.container}>
-          <div className={styles.catGrid}>
-            {categories.map((cat, i) => (
-              <motion.div 
-                key={i} 
-                whileHover={{ y: isScrolled ? 0 : -5 }}
-                className={styles.catItem}
-              >
-                <div className={styles.catIcon}>{cat.icon}</div>
-                <span>{cat.label}</span>
-              </motion.div>
-            ))}
+          <div className={styles.catScrollContainer}>
+            <div className={styles.catGrid}>
+              {categories.map((cat, i) => (
+                <motion.div 
+                  key={i} 
+                  whileHover={{ scale: 1.05 }}
+                  className={styles.catItem}
+                  onClick={() => navigate(`/search?category=${encodeURIComponent(cat.label)}`)}
+                >
+                  <div className={styles.catIcon}>{cat.icon}</div>
+                  <span>{cat.label}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* 3. CINEMATIC HERO */}
+
+      {/* MOBILE CATEGORY ROW */}
+      <div className={`${styles.mobileCategoryRow} mobile-only`}>
+        <div className={styles.mobileCategoryContainer}>
+          {categories.map((cat, i) => (
+            <div 
+              key={i} 
+              className={styles.mobileCategoryItem} 
+              onClick={() => navigate(`/search?category=${encodeURIComponent(cat.label)}`)}
+            >
+              <div className={styles.mobileCategoryIcon}>{cat.icon}</div>
+              <span>{cat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. HERO */}
       <section className={styles.hero}>
         <motion.img 
           src={heroImg} 
@@ -175,10 +228,10 @@ const Home: React.FC = () => {
         <div className={styles.heroBackground} />
         <div className={styles.heroContent}>
           <motion.p {...fadeInUp} className={styles.heroSubtitle}>NEXMART / SPRING 24</motion.p>
-          <motion.h1 {...fadeInUp} transition={{ delay: 0.1 }} className={styles.heroTitle}>Aesthetic<br />Utility.</motion.h1>
+          <motion.h1 {...fadeInUp} transition={{ delay: 0.1 }} className={styles.heroTitle}>Aesthetic Utility.</motion.h1>
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className={styles.heroActions}>
-            <Button size="lg">Shop the Collection</Button>
-            <Button size="lg" variant="outline">Watch the Film</Button>
+            <Button size="lg" onClick={() => navigate('/discovery')}>Shop the Collection</Button>
+            <Button size="lg" variant="outline" onClick={() => navigate('/about')}>Watch the Film</Button>
           </motion.div>
         </div>
       </section>
@@ -193,6 +246,7 @@ const Home: React.FC = () => {
                 {...fadeInUp} 
                 transition={{ delay: i * 0.1 }}
                 className={styles.gridCard}
+                onClick={() => navigate('/discovery')}
               >
                 <h3>{group.title}</h3>
                 <div className={styles.miniGrid}>
@@ -222,7 +276,7 @@ const Home: React.FC = () => {
               <h2>Deals of the Day</h2>
               <div className={styles.timer}>Ends soon</div>
             </div>
-            <div className={styles.viewAll}>View All Offers</div>
+            <div className={styles.viewAll} onClick={() => navigate('/search?filter=deals')}>View All Offers</div>
           </motion.div>
           
           <div className={styles.carouselWrapper}>
@@ -254,8 +308,14 @@ const Home: React.FC = () => {
               )}
             </AnimatePresence>
 
-            <div className={styles.horizontalScroll} ref={scrollContainerRef} onScroll={checkScroll}>
-              {bestDeals.map(product => (
+            <div 
+              className={styles.horizontalScroll} 
+              ref={scrollContainerRef} 
+              onScroll={checkScroll}
+              onMouseEnter={() => setIsHoveringDeals(true)}
+              onMouseLeave={() => setIsHoveringDeals(false)}
+            >
+              {flashDeals.map(product => (
                 <div key={product.id} className={styles.carouselItem}>
                   <ProductCard {...product} />
                 </div>
@@ -270,125 +330,178 @@ const Home: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.adRow}>
             {[
-              { 
-                title: 'Pro Audio', 
-                sub: 'STUDIO SERIES', 
-                text: 'Engineered for high-performance productivity.',
-                bg: '#000', 
-                color: '#fff' 
-              },
-              { 
-                title: 'Oak & Walnut', 
-                sub: 'SUSTAINABILITY', 
-                text: 'Ethically sourced, precision crafted furniture.',
-                bg: '#f5f5f5', 
-                color: '#000' 
-              },
-              { 
-                title: 'Steel Grey', 
-                sub: 'LIMITED DROP', 
-                text: 'The definitive edition for the digital artisan.',
-                bg: '#ffffff', 
-                color: '#000', 
-                border: true 
-              }
+              { title: 'Pro Audio', sub: 'STUDIO SERIES', text: 'Engineered for high-performance productivity.', price: '₹29,900', bg: '#000', color: '#fff' },
+              { title: 'Oak & Walnut', sub: 'SUSTAINABILITY', text: 'Ethically sourced, precision crafted furniture.', price: '₹12,500', bg: '#f5f5f5', color: '#000' },
+              { title: 'Steel Grey', sub: 'LIMITED DROP', text: 'The definitive edition for the digital artisan.', price: '₹18,500', bg: '#ffffff', color: '#000', border: true }
             ].map((ad, i) => (
               <motion.div 
                 key={i}
                 {...fadeInUp}
                 transition={{ delay: i * 0.1 }}
                 className={styles.adBanner} 
-                style={{ 
-                  backgroundColor: ad.bg, 
-                  color: ad.color,
-                  border: ad.border ? '1px solid var(--color-border)' : undefined,
-                }}
+                style={{ backgroundColor: ad.bg, color: ad.color, border: ad.border ? '1px solid var(--color-border)' : undefined }}
               >
                 <span className={styles.adSub}>{ad.sub}</span>
                 <h3 className={styles.adTitle}>{ad.title}</h3>
                 <p className={styles.adDescription}>{ad.text}</p>
-                <Button 
-                  size="sm" 
-                  variant={ad.bg === '#000' ? 'outline' : 'primary'} 
-                  className={ad.bg === '#000' ? styles.whiteBtn : ''}
-                >
-                  Explore Collection
-                </Button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. BESTSELLERS */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <motion.div {...fadeInUp} className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Featured Items</h2>
-            <div className={styles.viewAll}>Browse All</div>
-          </motion.div>
-          <div className={styles.productGrid}>
-            {[...bestDeals, ...bestDeals].slice(0, 8).map((product, i) => (
-              <motion.div 
-                key={i} 
-                {...fadeInUp} 
-                transition={{ delay: (i % 4) * 0.1 }}
-              >
-                <ProductCard {...product} id={`${product.id}-${i}`} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8. STUDIO GALLERY */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <motion.div {...fadeInUp} className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Studio Gallery</h2>
-            <div className={styles.viewAll}>Follow @NEXMART</div>
-          </motion.div>
-          <div className={styles.galleryGrid}>
-            <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className={styles.galleryItem}>
-              <img src={galleryImg1} alt="Studio Scene 1" />
-            </motion.div>
-            <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className={styles.galleryItem}>
-              <img src={aboutHeroImg} alt="Studio Scene 2" />
-            </motion.div>
-            <motion.div {...fadeInUp} transition={{ delay: 0.3 }} className={styles.galleryTextCard}>
-              <div className={styles.textLeft}>
-                <h3>Curated Hardware</h3>
-                <p>Designed for the digital artisan. Engineered for focus.</p>
-              </div>
-              <ArrowRight className={styles.arrowIcon} size={32} />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. TESTIMONIALS */}
-      <section className={styles.section} style={{ backgroundColor: '#fff', borderTop: '1px solid var(--color-border)' }}>
-        <div className={styles.container}>
-          <div className={styles.centeredHeader}>
-            <span className={styles.headerLabel}>Community</span>
-            <h2 className={styles.sectionTitleLarge}>Trusted globally.</h2>
-          </div>
-          <div className={styles.testimonialGrid}>
-            {testimonials.map((t, i) => (
-              <motion.div key={i} {...fadeInUp} transition={{ delay: i * 0.1 }} className={styles.testimonialCard}>
-                <Quote size={32} className={styles.quoteIcon} />
-                <p>"{t.quote}"</p>
-                <div className={styles.userInfo}>
-                  <strong className={styles.userName}>{t.author}</strong>
-                  <div className={styles.userMeta}>
-                    <span className={styles.userRole}>{t.role}</span>
-                    <span className={styles.userDivider}>•</span>
-                    <span className={styles.userCompany}>{t.company}</span>
-                  </div>
+                <div className={styles.adBannerActions}>
+                  <span className={styles.priceTag}>{ad.price}</span>
+                  <Button size="sm" variant={ad.bg === '#000' ? 'outline' : 'primary'} onClick={() => navigate('/discovery')}>Buy Now</Button>
                 </div>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 7. NEW ARRIVALS */}
+      <section className={styles.section} style={{ backgroundColor: '#f9f9f9' }}>
+        <div className={styles.container}>
+          <motion.div {...fadeInUp} className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>New Arrivals</h2>
+            <div className={styles.viewAll} onClick={() => navigate('/search?filter=new')}>Explore All</div>
+          </motion.div>
+          <div className={styles.productGridWrapper}>
+            <button 
+              className={`${styles.carouselBtn} ${styles.prevBtn}`}
+              onClick={() => newArrivalsRef.current?.scrollBy({ left: -400, behavior: 'smooth' })}
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <div 
+              className={styles.productGrid}
+              ref={newArrivalsRef}
+              onMouseEnter={() => setIsHoveringNew(true)}
+              onMouseLeave={() => setIsHoveringNew(false)}
+            >
+              {newArrivals.map((product, i) => (
+                <motion.div key={product.id} {...fadeInUp} transition={{ delay: i * 0.1 }}>
+                  <ProductCard {...product} />
+                </motion.div>
+              ))}
+            </div>
+            <button 
+              className={`${styles.carouselBtn} ${styles.nextBtn}`}
+              onClick={() => newArrivalsRef.current?.scrollBy({ left: 400, behavior: 'smooth' })}
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FEATURED ITEMS */}
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <motion.div {...fadeInUp} className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Studio Favorites</h2>
+            <div className={styles.viewAll} onClick={() => navigate('/search')}>Browse All</div>
+          </motion.div>
+          <div className={styles.productGrid}>
+            {featuredItems.map((product, i) => (
+              <motion.div key={product.id} {...fadeInUp} transition={{ delay: i * 0.1 }}>
+                <ProductCard {...product} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. DEVICE EXCLUSIVE SECTIONS */}
+      
+      {/* MOBILE EXCLUSIVE: Quick Swipe Discovery */}
+      <section className={`${styles.section} mobile-only`} style={{ paddingBottom: '120px' }}>
+        <div className={styles.container}>
+          <motion.div {...fadeInUp} className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Mobile Discovery</h2>
+          </motion.div>
+          <div className={styles.mobileExclusiveBanner}>
+            <div className={styles.exclusiveContent}>
+              <Smartphone size={32} />
+              <h3>Studio On The Go</h3>
+              <p>Experience the full NEXMART ecosystem optimized for your palm. Haptic-ready interactions and rapid deployment.</p>
+              <Button variant="outline" size="sm">Open App View</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DESKTOP EXCLUSIVE: Studio Efficiency Section */}
+      <section className={`${styles.section} desktop-only`}>
+        <div className={styles.container}>
+          <div className={styles.desktopExclusiveGrid}>
+            <motion.div {...fadeInUp} className={styles.efficiencyCard}>
+              <Laptop size={40} />
+              <h2>Pro Workflow</h2>
+              <p>Advanced keyboard shortcuts and multi-window curation tools for the professional digital artisan.</p>
+              <div className={styles.shortcutList}>
+                <div className={styles.shortcut}><span>CMD + K</span> Quick Search</div>
+                <div className={styles.shortcut}><span>SHIFT + D</span> Discovery Mode</div>
+              </div>
+            </motion.div>
+            <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className={styles.statsCard}>
+              <Globe size={40} />
+              <h2>Global Network</h2>
+              <p>Access the unified studio marketplace with 24/7 priority support and global asset distribution.</p>
+              <div className={styles.statGrid}>
+                <div className={styles.stat}><strong>24/7</strong> Uptime</div>
+                <div className={styles.stat}><strong>150+</strong> Studios</div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 10. TRENDING NOW */}
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <motion.div {...fadeInUp} className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Trending Now</h2>
+            <div className={styles.viewAll} onClick={() => navigate('/search')}>See Trending</div>
+          </motion.div>
+          <div className={styles.productGridWrapper}>
+            <button 
+              className={`${styles.carouselBtn} ${styles.prevBtn}`}
+              onClick={() => trendingRef.current?.scrollBy({ left: -400, behavior: 'smooth' })}
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <div 
+              className={styles.productGrid}
+              ref={trendingRef}
+              onMouseEnter={() => setIsHoveringTrending(true)}
+              onMouseLeave={() => setIsHoveringTrending(false)}
+            >
+              {trendingItems.map((product, i) => (
+                <motion.div key={product.id} {...fadeInUp} transition={{ delay: i * 0.1 }}>
+                  <ProductCard {...product} />
+                </motion.div>
+              ))}
+            </div>
+            <button 
+              className={`${styles.carouselBtn} ${styles.nextBtn}`}
+              onClick={() => trendingRef.current?.scrollBy({ left: 400, behavior: 'smooth' })}
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. NEWSLETTER */}
+      <section className={styles.newsletterSection}>
+        <div className={styles.container}>
+          <motion.div {...fadeInUp} className={styles.newsletterCard}>
+            <div className={styles.newsletterContent}>
+              <Sparkles size={40} className={styles.newsletterIcon} />
+              <h2>Join the Studio.</h2>
+              <p>Get exclusive drops, early access, and curated hardware inspiration delivered to your inbox.</p>
+              <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
+                <input type="email" placeholder="Enter your email address" />
+                <Button variant="primary">Subscribe</Button>
+              </form>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

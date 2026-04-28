@@ -1,0 +1,244 @@
+.page {
+  padding: clamp(80px, 12vh, 120px) clamp(16px, 5vw, 40px) 100px;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.heroIcon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.mainTrophy {
+  width: clamp(64px, 12vw, 120px);
+  height: clamp(64px, 12vw, 120px);
+  color: #000;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 900;
+  margin-bottom: 12px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: clamp(14px, 2vw, 18px);
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-inline: auto;
+  line-height: 1.5;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* STATS GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.rewardCard {
+  background: #fff;
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.rewardCard:hover {
+  transform: translateY(-8px);
+  border-color: #000;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cardIcon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  border-radius: 10px;
+}
+
+.cardLabel {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+.cardValue {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: #000;
+}
+
+.miniProgress {
+  height: 4px;
+  background-color: #f1f5f9;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 2px;
+}
+
+/* MOBILE TIER CARD - PHONE SPECIFIC */
+.mobileTierCard {
+  background-color: #000;
+  color: #fff;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 769px) {
+  .mobileTierCard {
+    /* Different placement/style for PC if needed, or hide if it's too 'app-like' */
+    background-color: transparent;
+    color: #000;
+    border: 1px solid var(--color-border);
+    padding: 32px;
+  }
+}
+
+.tierHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.tierProgress {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+@media (min-width: 769px) {
+  .tierProgress {
+    background-color: #f1f5f9;
+  }
+}
+
+.tierBar {
+  height: 100%;
+  background-color: var(--color-accent);
+}
+
+.mobileTierCard p {
+  font-size: 12px;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+/* MILESTONES */
+.milestones {
+  margin-bottom: 60px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sectionHeader h2 {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.milestoneList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.milestoneItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mInfo p {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mInfo span {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.mBarContainer {
+  height: 6px;
+  background-color: #f1f5f9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mBar {
+  height: 100%;
+  background-color: #000;
+}
+
+.footerActions {
+  display: flex;
+  justify-content: center;
+}

@@ -4,13 +4,13 @@
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 var(--space-8);
+  padding: 0 clamp(16px, 5vw, var(--space-12));
 }
 
 .hero {
-  padding: 160px 0 100px;
+  padding: clamp(120px, 15vh, 160px) 0 clamp(80px, 10vh, 100px);
   text-align: center;
   background: radial-gradient(circle at 50% 100%, #f1f5f9, transparent);
 }
@@ -27,7 +27,7 @@
 
 .title {
   font-family: var(--font-display);
-  font-size: 80px;
+  font-size: clamp(40px, 10vw, 80px);
   font-weight: 900;
   letter-spacing: -0.05em;
   margin-bottom: 32px;
@@ -35,7 +35,7 @@
 }
 
 .description {
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto;
@@ -43,26 +43,44 @@
 }
 
 .gridSection {
-  padding: 100px 0;
+  padding: clamp(60px, 8vw, 100px) 0;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  gap: 12px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 10px 4px;
+}
+
+.grid::-webkit-scrollbar { display: none; }
+
+@media (min-width: 1025px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 25vw, 300px), 1fr));
+    grid-template-rows: auto;
+    grid-auto-flow: row;
+    gap: clamp(16px, 3vw, 24px);
+    overflow: visible;
+  }
 }
 
 .catCard {
   background-color: #fff;
   border: 1px solid var(--color-border);
-  padding: 40px;
+  padding: clamp(16px, 3vw, 32px);
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  min-width: 200px; /* Ensure cards don't shrink too much in scroll */
 }
 
 .icon {
@@ -95,8 +113,8 @@
 
 .arrow {
   position: absolute;
-  bottom: 40px;
-  right: 40px;
+  bottom: clamp(24px, 4vw, 40px);
+  right: clamp(24px, 4vw, 40px);
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.3s ease;
@@ -109,18 +127,18 @@
 
 /* TRENDING SECTION */
 .trendingSection {
-  padding: 120px 0;
+  padding: clamp(80px, 10vw, 120px) 0;
   background-color: #fff;
   border-top: 1px solid var(--color-border);
 }
 
 .sectionHeader {
-  margin-bottom: 64px;
+  margin-bottom: clamp(40px, 6vw, 64px);
 }
 
 .sectionHeader h2 {
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: clamp(32px, 5vw, 40px);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.04em;
@@ -135,19 +153,6 @@
 
 .productGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-}
-
-@media (max-width: 1200px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
-  .productGrid { grid-template-columns: repeat(2, 1fr); }
-  .title { font-size: 64px; }
-}
-
-@media (max-width: 768px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-  .productGrid { grid-template-columns: 1fr; }
-  .title { font-size: 48px; }
-  .hero { padding: 120px 0 80px; }
+  grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 22vw, 320px), 1fr));
+  gap: clamp(24px, 4vw, 32px);
 }
