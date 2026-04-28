@@ -40,10 +40,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className={styles.imageWrapper}>
         {discount && <span className={styles.badge}>{discount} OFF</span>}
         <img src={image} alt={name} className={styles.image} />
-        <button className={styles.cartOverlayBtn} onClick={handleAddToCart}>
-          <ShoppingCart size={16} />
-          <span>Add to Cart</span>
-        </button>
       </div>
       
       <div className={styles.content}>
@@ -62,9 +58,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <span className={styles.price}>₹{price.toLocaleString()}</span>
             {oldPrice && <span className={styles.oldPrice}>₹{oldPrice.toLocaleString()}</span>}
           </div>
-          <button className={styles.buyBtn} onClick={handleBuyNow}>
-            Buy Now
-          </button>
+          <div className={styles.actions}>
+            <button className={styles.cartBtn} onClick={handleAddToCart} title="Add to Cart">
+              <ShoppingCart size={18} />
+            </button>
+            <button className={styles.buyBtn} onClick={handleBuyNow}>
+              Buy Now
+            </button>
+          </div>
         </div>
       </div>
     </div>
