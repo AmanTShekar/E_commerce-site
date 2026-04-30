@@ -176,6 +176,15 @@ const Navbar: React.FC = () => {
               </AnimatePresence>
             </div>
 
+            <Link to="/cart" className={styles.navItem}>
+              <div className={styles.cartIconWrapper}>
+                <ShoppingBag size={20} />
+                {cart.length > 0 && (
+                  <span className={styles.badge}>{cart.length}</span>
+                )}
+              </div>
+              <span className="desktop-only">Cart</span>
+            </Link>
           </div>
         </div>
 
