@@ -655,6 +655,7 @@ const Home: React.FC = () => {
                 <span className={styles.adSub}>{ad.sub}</span>
                 <h3 className={styles.adTitle}>{ad.title}</h3>
                 <div className={styles.adBannerActions}>
+                  {/* Production Build Fix: Corrected Button Size */}
                   <Button size="sm" variant={ad.bg === '#000' ? 'outline' : 'primary'}>Explore</Button>
                 </div>
               </div>
