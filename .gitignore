@@ -20,4 +20,3 @@ dist/
 !/backend
 !/package.json
 !/DEPLOYMENT_GUIDE.md
-!/.gitignore
