@@ -8,12 +8,9 @@ enabled = true
 [[d1_databases]]
 binding = "DB"
 database_name = "nexmart-db"
-database_id = "00000000-0000-0000-0000-000000000000" # You will update this later after creating the D1 DB
+database_id = "6e46edad-3cda-4c6e-a171-a07b90232f8b" # Production D1 ID
 migrations_dir = "drizzle/migrations"
 
 [vars]
-ENVIRONMENT = "development"
-
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "nexmart-assets"
+ENVIRONMENT = "production"
+ALLOWED_ORIGIN = "*"
