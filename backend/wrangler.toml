@@ -12,5 +12,5 @@ database_id = "6e46edad-3cda-4c6e-a171-a07b90232f8b" # Production D1 ID
 migrations_dir = "drizzle/migrations"
 
 [vars]
-ENVIRONMENT = "production"
+APP_ENV = "production"
 ALLOWED_ORIGIN = "*"

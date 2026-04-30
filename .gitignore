@@ -6,6 +6,7 @@ dist/
 *.local
 .env
 .env.*
+!.env.production
 
 # Ignore root artifacts and docs not needed for production
 /antigravity_plan.md
