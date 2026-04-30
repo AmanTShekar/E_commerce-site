@@ -1,0 +1,19 @@
+name = "nexmart-backend"
+main = "src/index.ts"
+compatibility_date = "2024-04-05"
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nexmart-db"
+database_id = "00000000-0000-0000-0000-000000000000" # You will update this later after creating the D1 DB
+migrations_dir = "drizzle/migrations"
+
+[vars]
+ENVIRONMENT = "development"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "nexmart-assets"

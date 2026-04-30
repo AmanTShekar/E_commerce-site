@@ -2,6 +2,19 @@
 
 All notable changes to the **NEXMART Studio Series** project will be documented in this file.
 
+## [2026-04-29 10:45 IST] - Phase 2: Production Hardening & Ecosystem Expansion
+### Added
+- **Level 2 Admin Gate**: Implemented a secondary "Command Secret" authentication layer for the Admin Hub (`NEXMART-STUDIO-ALPHA-2026`).
+- **Become a Seller**: Created high-fidelity landing page and integrated conversion CTAs into the global Navbar and Footer.
+- **Session Summary**: Added `SESSION_SUMMARY.md` for persistent cross-session context tracking.
+- **Enhanced Data Layer**: Added production-ready `seed.ts` with legitimate Bcrypt hashes and verified product taxonomies.
+
+### Fixed
+- **Admin Hub Stability**: Resolved 500 Internal Server Errors in backend middleware and a critical `ReferenceError` for `navigate`.
+- **Auth Resilience**: Fixed "Access Restricted" flickering on protected routes by implementing loading-state guards.
+- **Session Persistence**: Increased JWT lifespan to 24 hours and refined session maintenance logic to prevent accidental logouts.
+
+
 ## [2026-04-28 19:40 IST] - Phase 1 Final UX & Mobile Optimization
 ### Added
 - **Dynamic Typography**: Implemented `clamp()` scaling across all hero titles and headers for perfect mobile legibility.

@@ -1,0 +1,143 @@
+.page {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #fff;
+}
+
+.card {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  background: #fff;
+  padding: 60px 40px;
+  border-radius: 40px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.successIcon {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+
+.header p {
+  font-size: 16px;
+  color: #666;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.orderInfo {
+  margin: 40px 0;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoRow span {
+  font-size: 12px;
+  font-weight: 800;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.infoRow strong {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.statusBadge {
+  font-size: 10px;
+  font-weight: 900;
+  background: #000;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.visualFlow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.flowItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #000;
+}
+
+.flowItem span {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.flowLine {
+  flex: 1;
+  max-width: 60px;
+  height: 2px;
+  background: #eee;
+}
+
+.flowItemDisabled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #ccc;
+}
+
+.flowItemDisabled span {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.homeBtn {
+  background: none;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.homeBtn:hover {
+  color: #000;
+}

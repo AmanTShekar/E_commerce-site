@@ -1,0 +1,23 @@
+# NEXMART Global Ignore
+node_modules/
+dist/
+.wrangler/
+.DS_Store
+*.local
+.env
+.env.*
+
+# Ignore root artifacts and docs not needed for production
+/antigravity_plan.md
+/plan.md
+/changelog.md
+/test_credentials.md
+/security_guidelines.md
+/SESSION_SUMMARY.md
+
+# Allow frontend and backend
+!/frontend
+!/backend
+!/package.json
+!/DEPLOYMENT_GUIDE.md
+!/.gitignore

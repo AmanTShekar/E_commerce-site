@@ -1,0 +1,209 @@
+.contact {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+.hero {
+  padding: clamp(80px, 12vh, 120px) 0 clamp(40px, 8vh, 80px);
+  background-color: #fff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, var(--space-12));
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, var(--text-2xl));
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.content {
+  padding: clamp(40px, 8vw, 80px) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  gap: clamp(40px, 6vw, 80px);
+}
+
+.infoSide {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 4vw, 32px);
+}
+
+.infoCard {
+  background-color: #fff;
+  padding: clamp(20px, 4vw, 32px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.icon {
+  width: clamp(48px, 8vw, 56px);
+  height: clamp(48px, 8vw, 56px);
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.infoCard h3 {
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.infoCard p {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 700;
+}
+
+.formSide {
+  background-color: #fff;
+  padding: clamp(24px, 5vw, 60px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 4vw, 32px);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formGroup label {
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.formGroup input, .formGroup textarea {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-main);
+  font-size: 16px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus, .formGroup textarea:focus {
+  outline: none;
+  border-color: #000;
+  background-color: #fff;
+}
+
+.formGroup textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.submitBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+.faqSection {
+  margin-top: clamp(80px, 15vw, 120px);
+}
+
+.faqTitle {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.faqGrid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faqItem {
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.faqQuestion {
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.faqQuestion svg {
+  transition: transform 0.3s ease;
+}
+
+.faqActive .faqQuestion svg {
+  transform: rotate(45deg);
+}
+
+.faqAnswer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: #fafafa;
+}
+
+.faqActive .faqAnswer {
+  max-height: 200px;
+  padding: 0 32px 32px;
+}
+
+.faqAnswer p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}

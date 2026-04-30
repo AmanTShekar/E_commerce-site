@@ -1,0 +1,119 @@
+.page {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 120px 20px 60px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 48px;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #999;
+  font-weight: 600;
+}
+
+.section {
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.05);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  padding: 24px 32px;
+  border-bottom: 1px solid #f5f5f5;
+  background: #fafafa;
+}
+
+.sectionHeader h2 {
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.settingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background 0.3s;
+}
+
+.settingRow:last-child {
+  border-bottom: none;
+}
+
+.settingRow:hover {
+  background: #fafafa;
+}
+
+.settingInfo h3 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.settingInfo p {
+  font-size: 13px;
+  color: #999;
+  font-weight: 600;
+}
+
+.toggle {
+  width: 48px;
+  height: 24px;
+  background: #eee;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle.active {
+  background: #000;
+}
+
+.toggleDot {
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.toggle.active .toggleDot {
+  transform: translateX(24px);
+}
+
+.select {
+  background: #f5f5f5;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}

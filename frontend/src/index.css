@@ -1,0 +1,176 @@
+:root {
+  /* Core Palette - Studio Obsidian */
+  --color-primary: #000000;
+  --color-accent: #3b82f6;
+  --color-bg: #f8f8f8;
+  --color-surface: #ffffff;
+  --color-border: rgba(0, 0, 0, 0.08);
+  
+  /* Text */
+  --color-text-primary: #000000;
+  --color-text-secondary: #4a4a4a;
+  --color-text-muted: #8e8e93;
+  
+  /* Obsidian Theme */
+  --color-obsidian: #000000;
+  --color-obsidian-glass: rgba(0, 0, 0, 0.85);
+  
+  /* Fluid Spacing System */
+  --space-unit: clamp(0.5rem, 1vw, 1rem);
+  --space-1: calc(0.25 * var(--space-unit));
+  --space-2: calc(0.5 * var(--space-unit));
+  --space-3: var(--space-unit);
+  --space-4: calc(2 * var(--space-unit));
+  --space-6: calc(3 * var(--space-unit));
+  --space-8: calc(4 * var(--space-unit));
+  --space-12: calc(6 * var(--space-unit));
+  --space-16: calc(8 * var(--space-unit));
+  
+  /* Typography - Fluid Clamp Rule */
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  
+  --text-xs: clamp(0.7rem, 0.05vw + 0.68rem, 0.75rem);
+  --text-sm: clamp(0.8rem, 0.1vw + 0.78rem, 0.88rem);
+  --text-base: clamp(1rem, 0.2vw + 0.95rem, 1.1rem);
+  --text-lg: clamp(1.2rem, 0.5vw + 1.1rem, 1.4rem);
+  --text-xl: clamp(1.5rem, 1vw + 1.2rem, 2rem);
+  --text-2xl: clamp(2rem, 3vw + 1.5rem, 4rem);
+  --text-display: clamp(3.5rem, 10vw + 1rem, 12rem);
+
+  /* Elevation & Effects */
+  --shadow-premium: 0 10px 40px rgba(0, 0, 0, 0.04);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  
+  --transition-gentle: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-snappy: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Textures */
+  --noise-bg: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+html, body {
+  overflow-x: clip;
+  width: 100%;
+  position: relative;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Visibility Utilities */
+.mobile-only, .hide-desktop { display: flex !important; }
+.hide-mobile, .desktop-only { display: none !important; }
+
+@media (min-width: 1025px) {
+  .mobile-only, .hide-desktop { display: none !important; }
+  .hide-mobile, .desktop-only { display: flex !important; }
+}
+
+html, body {
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Global Texture Layer */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--noise-bg);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  container-type: inline-size;
+}
+
+/* Premium Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.intrinsic-center {
+  display: grid;
+  place-items: center;
+}
+
+.fluid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--space-4);
+}
+
+/* Responsive Overrides - Clean up */
+@media (max-width: 1024px) {
+  .hide-mobile, .desktop-only { display: none !important; }
+}
+
+@media (min-width: 1025px) {
+  .hide-desktop, .mobile-only { display: none !important; }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
